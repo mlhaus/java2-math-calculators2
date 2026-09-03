@@ -38,8 +38,7 @@ public class Fraction implements Comparable<Fraction> {
      */
     @Override
     public String toString() {
-        // Implementation needed
-        return "";
+        return numerator + "/" + denominator;
     }
 
     /**
@@ -76,6 +75,13 @@ public class Fraction implements Comparable<Fraction> {
      * @throws ArithmeticException if the denominator is zero
      */
     public void setDenominator(int denominator) {
+        if(denominator == 0) {
+            throw new ArithmeticException("Denominator cannot be zero");
+        }
+        if(denominator < 0 && numerator > 0 || denominator < 0 && numerator < 0) {
+            numerator *= -1;
+            denominator *= -1;
+        }
         this.denominator = denominator;
     }
 
