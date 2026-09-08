@@ -90,7 +90,7 @@ class FractionTest {
         f1.setNumerator(-3);
         f1.setDenominator(-3);
         // Assert
-        assertEquals("1/3", f1.toString());
+        assertEquals("3/3", f1.toString());
     }
 
     @Test
