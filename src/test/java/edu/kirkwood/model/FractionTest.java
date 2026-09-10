@@ -229,8 +229,53 @@ class FractionTest {
     }
 
     @Test
-    void toMixedNumber() {
-        fail();
+    void toMixedNumberWhole() {
+        // Arrange
+        f1 = new Fraction(2,1);
+        // Act
+        String mixedNumber = f1.toMixedNumberString();
+        // Assert
+        assertEquals("2", mixedNumber);
+    }
+
+    @Test
+    void toMixedNumberImproper() {
+        // Arrange
+        f1 = new Fraction(16, 9);
+        // Act
+        String mixedNumber = f1.toMixedNumberString();
+        // Assert
+        assertEquals("1 7/9", mixedNumber);
+    }
+
+    @Test
+    void toMixedNumberWithNegative() {
+        // Arrange
+        f1 = new Fraction(7, -4);
+        // Act
+        String mixedNumber = f1.toMixedNumberString();
+        // Assert
+        assertEquals("-1 3/4", mixedNumber);
+    }
+
+//    @Test
+//        // This test fails because the Fraction constructor doesn't allow Zeros in the denominator.
+//    void toMixedNumberWithDenominator0() {
+//        // Arrange
+//        Fraction f1 = new Fraction(5, 1);
+//        f1.setDenominator(0);
+//        // Act and Assert
+//        assertThrows(ArithmeticException.class, () -> f1.toMixedNumberString());
+//    }
+
+    @Test
+    void toMixedNumberWithNumerator0() {
+        // Arrange
+        Fraction f1 = new Fraction(0, 5);
+        // Act
+        String mixedNumber = f1.toMixedNumberString();
+        // Assert
+        assertEquals("0", mixedNumber);
     }
 
     @Test

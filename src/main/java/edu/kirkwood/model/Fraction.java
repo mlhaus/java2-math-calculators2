@@ -170,9 +170,29 @@ public class Fraction implements Comparable<Fraction> {
      *
      * @return a string representation of the fraction as a mixed number
      */
-    public String toMixedNumber() {
-        // Implementation needed
-        return "";
+    public String toMixedNumberString() {
+        String result = "";
+        this.simplify();
+
+        if (denominator == 0) {
+            throw new ArithmeticException("Denominator cannot be zero.");
+        }
+        if (numerator == 0) {
+            result += "0";
+        } else if (Math.abs(numerator) < Math.abs(denominator)) {
+            result += numerator + "/" + denominator;
+        } else if (Math.abs(numerator) >= Math.abs(denominator)) {
+            int wholeNumber = numerator / denominator;
+            int remainder = Math.abs(numerator % denominator);
+            if (remainder == 0) {
+                result += wholeNumber;
+            } else {
+                result += wholeNumber + " " + remainder + "/" + denominator;
+            }
+        } else {
+            result += "0";
+        }
+        return result;
     }
 
     /**
