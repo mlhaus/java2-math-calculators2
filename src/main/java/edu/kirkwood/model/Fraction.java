@@ -234,13 +234,21 @@ public class Fraction implements Comparable<Fraction> {
     /**
      * Divides this fraction by another fraction.
      *
-     * @param other the fraction to divide by (the divisor)
+     * @param otherFraction the fraction to divide by (the divisor)
      * @return a new Fraction object representing the quotient
      * @throws IllegalArgumentException if the divisor is zero
      */
-    public Fraction divide(Fraction other) {
-        // Implementation needed
-        return null;
+    public Fraction divide(Fraction otherFraction){
+        Fraction newFraction = null;
+        try {
+            int newNumerator = numerator * otherFraction.getDenominator();
+            int newDenominator = denominator * otherFraction.getNumerator();
+            newFraction = new Fraction(newNumerator,newDenominator);
+            newFraction.simplify();
+        } catch (ArithmeticException e) {
+            throw e;
+        }
+        return newFraction;
     }
 
 }

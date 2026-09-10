@@ -396,4 +396,36 @@ class FractionTest {
         // Act and Assert
         assertThrows(ArithmeticException.class, () -> f1.divide(f2));
     }
+
+    @Test
+    void dividePositive() {
+        Fraction value = new Fraction(1,2);
+        f1 = new Fraction(2,6);
+        Fraction f2 = new Fraction(4,6);
+        Fraction result = f1.divide(f2);
+        assertEquals(value, result);
+    }
+
+    @Test
+    void divideNegative() {
+        Fraction value = new Fraction(-1,2);
+        f1 = new Fraction(2,6);
+        Fraction f2 = new Fraction(-4,6);
+        Fraction result = f1.divide(f2);
+        assertEquals(value,result);
+    }
+
+    @Test
+    void divideBothNegative() {
+        Fraction value = new Fraction(1,2);
+        f1 = new Fraction(2,-6);
+        Fraction f2 = new Fraction(-4,6);
+        Fraction result = f1.divide(f2);
+        assertEquals(value,result);
+    }
+
+    @Test
+    void divideZero() {
+        assertThrows(ArithmeticException.class, ()->f1.divide(new Fraction(0,1)));
+    }
 }
