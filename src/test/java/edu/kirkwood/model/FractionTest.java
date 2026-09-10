@@ -110,12 +110,61 @@ class FractionTest {
 
     @Test
     void gcd() {
-        fail();
+        // Act and assert
+        assertEquals(15, Fraction.gcd(75, 45));
+        assertEquals(2, Fraction.gcd(2, 4));
+        assertEquals(1, Fraction.gcd(5, 7));
     }
 
     @Test
-    void lcm() {
-        fail();
+    void gcdWithNegatives() {
+        // Act
+        int result1 = Fraction.gcd(5, 7);
+        int result2 = Fraction.gcd(-5, 7);
+        int result3 = Fraction.gcd(5, -7);
+        int result4 = Fraction.gcd(-5, -7);
+        // Assert
+        assertTrue(result1 == result2 && result2 == result3 && result3 == result4);
+    }
+
+    @Test
+    @DisplayName("Test LCM with two positive integers")
+    void lcmWithPositives() {
+        assertEquals(24, Fraction.lcm(6, 8));
+    }
+
+    @Test
+    @DisplayName("Test LCM where one number is a multiple of the other")
+    void testLcmWithMultiple() {
+        assertEquals(12, Fraction.lcm(4, 12));
+    }
+
+    @Test
+    @DisplayName("Test LCM with two prime numbers")
+    void testLcmWithPrimes() {
+        // The lcm of two prime numbers is their product.
+        assertEquals(7 * 11, Fraction.lcm(7, 11));
+    }
+
+    @Test
+    @DisplayName("Test LCM with the number 1")
+    void testLcmWithOne() {
+        assertEquals(9, Fraction.lcm(1, 9));
+        assertEquals(9, Fraction.lcm(9, 1));
+    }
+
+    @Test
+    @DisplayName("Test LCM with identical numbers")
+    void testLcmWithIdenticalNumbers() {
+        assertEquals(5, Fraction.lcm(5, 5));
+    }
+
+    @Test
+    @DisplayName("Test LCM where one of the inputs is zero")
+    void testLcmWithZero() {
+        assertEquals(0, Fraction.lcm(10, 0));
+        assertEquals(0, Fraction.lcm(0, 10));
+        assertEquals(0, Fraction.lcm(0, 0));
     }
 
     @Test
@@ -129,8 +178,39 @@ class FractionTest {
     }
 
     @Test
-    void add() {
-        fail();
+    @DisplayName("Test 1/1 + 2/3 = 5/3")
+    void addWholeNumberToFraction() {
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert
+        assertEquals(5, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+    }
+
+    @Test
+    @DisplayName("Test -1/4 + 2/3 = 5/12")
+    void addNegativeFractionToPositive() {
+        // Arrange
+        f1 = new Fraction(25, -100); // Represents -1/4
+        f2 = new Fraction(-10, -15); // Represents 2/3
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert
+        assertEquals(5, result.getNumerator());
+        assertEquals(12, result.getDenominator());
+    }
+
+    @Test
+    @DisplayName("Test 1/4 + 1/4 = 1/2")
+    void addFractionsThatNeedSimplification() {
+        // Arrange
+        f1 = new Fraction(1, 4);
+        f2 = new Fraction(1, 4);
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert - Should not be 2/4
+        assertEquals(1, result.getNumerator());
+        assertEquals(2, result.getDenominator());
     }
 
     @Test
@@ -144,7 +224,10 @@ class FractionTest {
     }
 
     @Test
-    void divide() {
-        fail();
+    void divideByZeroNotAllowed() {
+        // Arrange
+        f2 = new Fraction(0, 1);
+        // Act and Assert
+        assertThrows(ArithmeticException.class, () -> f1.divide(f2));
     }
 }
