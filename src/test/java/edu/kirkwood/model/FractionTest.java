@@ -320,8 +320,73 @@ class FractionTest {
     }
 
     @Test
-    void multiply() {
-        fail();
+    void multiplyBothPositive() {
+        // Arrange
+        f1 = new Fraction(1, 4);
+        f2 = new Fraction(1, 4);
+
+        // Act
+        Fraction result = f1.multiply(f2);
+
+        // Assert
+        assertEquals(1, result.getNumerator());
+        assertEquals(16, result.getDenominator());
+    }
+
+    @Test
+    void multiplyOneNegative() {
+        // Arrange
+        f1 = new Fraction(1, 4);
+        f2 = new Fraction(-1, 4);
+
+        // Act
+        Fraction result = f1.multiply(f2);
+
+        // Assert
+        assertEquals(-1, result.getNumerator());
+        assertEquals(16, result.getDenominator());
+    }
+
+    @Test
+    void multiplyBothNegative() {
+        // Arrange
+        f1 = new Fraction(-1, 4);
+        f2 = new Fraction(-1, 4);
+
+        // Act
+        Fraction result = f1.multiply(f2);
+
+        // Assert
+        assertEquals(1, result.getNumerator());
+        assertEquals(16, result.getDenominator());
+    }
+
+    @Test
+    void multiplyNumeratorZero() {
+        // Arrange
+        f1 = new Fraction(0, 4);
+        f2 = new Fraction(1, 4);
+
+        // Act
+        Fraction result = f1.multiply(f2);
+
+        // Assert
+        assertEquals(0, result.getNumerator());
+        assertEquals(1, result.getDenominator());
+    }
+
+    @Test
+    void multiplyNeedsSimplification() {
+        // Arrange
+        f1 = new Fraction(1, 4);
+        f2 = new Fraction(2, 3);
+
+        // Act
+        Fraction result = f1.multiply(f2);
+
+        // Assert
+        assertEquals(1, result.getNumerator());
+        assertEquals(6, result.getDenominator());
     }
 
     @Test
