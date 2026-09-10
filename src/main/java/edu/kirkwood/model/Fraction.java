@@ -227,8 +227,11 @@ public class Fraction implements Comparable<Fraction> {
      * @return a new Fraction object representing the product
      */
     public Fraction multiply(Fraction other) {
-        // Implementation needed
-        return null;
+        int resultNumerator = this.numerator * other.numerator;
+        int resultDenominator = this.denominator * other.denominator;
+        Fraction result = new Fraction(resultNumerator, resultDenominator);
+        result.simplify();
+        return result;
     }
 
     /**
