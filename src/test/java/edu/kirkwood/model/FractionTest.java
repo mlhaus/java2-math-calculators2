@@ -169,7 +169,63 @@ class FractionTest {
 
     @Test
     void simplify() {
-        fail();
+        // Arrange
+        Fraction f = new Fraction(6, 8);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(3, f.getNumerator());
+        assertEquals(4, f.getDenominator());
+    }
+    @Test
+    void simplifyNumeratorGreaterThanDenominator() {
+        // Arrange
+        Fraction f = new Fraction(8, 6);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(4, f.getNumerator());
+        assertEquals(3, f.getDenominator());
+    }
+    @Test
+    void simplifyPrimeNumbers() {
+        // Arrange
+        Fraction f = new Fraction(13, 17);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(13, f.getNumerator());
+        assertEquals(17, f.getDenominator());
+    }
+    @Test
+    void simplifyNumeratorNegative() {
+        // Arrange
+        Fraction f = new Fraction(-6, 8);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(-3, f.getNumerator());
+        assertEquals(4, f.getDenominator());
+    }
+    @Test
+    void simplifyDenominatorNegative() {
+        // Arrange
+        Fraction f = new Fraction(6, -8);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(-3, f.getNumerator());
+        assertEquals(4, f.getDenominator());
+    }
+    @Test
+    void simplifyBothNegative() {
+        // Arrange
+        Fraction f = new Fraction(-6, -8);
+        // Act
+        f.simplify();
+        // Assert
+        assertEquals(3, f.getNumerator());
+        assertEquals(4, f.getDenominator());
     }
 
     @Test

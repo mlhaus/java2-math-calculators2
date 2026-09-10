@@ -151,7 +151,17 @@ public class Fraction implements Comparable<Fraction> {
      * and denominator by their greatest common divisor.
      */
     public void simplify() {
-        // Implementation needed
+        if (numerator == 0) {
+            denominator = 1;
+            return;
+        }
+        int divisor = gcd(numerator, denominator);
+        numerator /= divisor;
+        denominator /= divisor;
+        if (denominator < 0) {
+            numerator = -numerator;
+            denominator = -denominator;
+        }
     }
 
     /**
