@@ -92,7 +92,15 @@ public class Fraction implements Comparable<Fraction> {
      */
     @Override
     public int compareTo(Fraction o) {
-        return 0;
+        long thisNumerator = (long)this.numerator;
+        long thisDenominator = (long)this.denominator;
+        long otherNumerator = (long)o.numerator;
+        long otherDenominator = (long)o.denominator;
+
+        long a = thisNumerator * otherDenominator;
+        long b = otherNumerator * thisDenominator;
+
+        return Long.compare(a, b);
     }
 
     /**
@@ -105,6 +113,8 @@ public class Fraction implements Comparable<Fraction> {
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         Fraction fraction = (Fraction) o;
+        simplify(); // simplify fraction A
+        fraction.simplify(); // simplify fraction B
         return numerator == fraction.numerator && denominator == fraction.denominator;
     }
 
@@ -216,8 +226,11 @@ public class Fraction implements Comparable<Fraction> {
      * @return a new Fraction object representing the difference
      */
     public Fraction subtract(Fraction other) {
-        // Implementation needed
-        return null;
+        int newNumerator = this.numerator * other.denominator - this.denominator * other.numerator;
+        int newDenominator = this.denominator * other.denominator;
+        Fraction result = new Fraction(newNumerator, newDenominator);
+        result.simplify();
+        return result;
     }
 
     /**
