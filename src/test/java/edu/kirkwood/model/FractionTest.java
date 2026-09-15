@@ -344,6 +344,42 @@ class FractionTest {
     }
 
     @Test
+    @DisplayName("Test 1/1 + 2/3 = 5/3")
+    void addWholeNumberToFraction() {
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert
+        assertEquals(5, result.getNumerator());
+        assertEquals(3, result.getDenominator());
+    }
+
+    @Test
+    @DisplayName("Test -1/4 + 2/3 = 5/12")
+    void addNegativeFractionToPositive() {
+        // Arrange
+        f1 = new Fraction(25, -100); // Represents -1/4
+        f2 = new Fraction(-10, -15); // Represents 2/3
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert
+        assertEquals(5, result.getNumerator());
+        assertEquals(12, result.getDenominator());
+    }
+
+    @Test
+    @DisplayName("Test 1/4 + 1/4 = 1/2")
+    void addFractionsThatNeedSimplification() {
+        // Arrange
+        f1 = new Fraction(1, 4);
+        f2 = new Fraction(1, 4);
+        // Act
+        Fraction result = f1.add(f2);
+        // Assert
+        assertEquals(1, result.getNumerator());
+        assertEquals(2, result.getDenominator());
+    }
+
+    @Test
     @DisplayName("Test 1/1 - 2/3 = 1/3")
     void subtractWholeNumberToFraction() {
         // Act
