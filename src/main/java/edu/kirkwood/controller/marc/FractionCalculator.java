@@ -113,13 +113,29 @@ public class FractionCalculator {
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid denominator");
             }
-            if(whole > 0) {
+            // No validation errors
+            if(whole > 0) { // Calculates positive fraction
                 numerator = whole * denominator + numerator;
-            } else {
+            } else { // Calculates negative fraction
                 numerator = whole * denominator - numerator;
             }
             Fraction result = new Fraction(numerator, denominator);
             return result;
+        } else if(str.contains("/")) { // proper and improper fractions 3/4 or 7/3
+            String[] parts = str.split("/");
+            int numerator = 0;
+            try {
+                numerator = Integer.parseInt(parts[0]);
+            } catch(NumberFormatException e) {
+                throw new NumberFormatException("Invalid numerator");
+            }
+            int denominator = 0;
+            try {
+                denominator = Integer.parseInt(parts[1]);
+            } catch(NumberFormatException e) {
+                throw new NumberFormatException("Invalid denominator");
+            }
+            return new Fraction(numerator, denominator);
         }
         return null;
     }

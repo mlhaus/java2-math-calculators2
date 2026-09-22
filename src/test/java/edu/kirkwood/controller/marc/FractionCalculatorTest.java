@@ -218,6 +218,32 @@ class FractionCalculatorTest {
         assertEquals(expectedError, actualError);
     }
 
+    @Test
+    void parseMixedFractionWithBadNumeratorException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("1 a/4"));
+
+        // Arrange
+        String expectedError = "Invalid numerator";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertEquals(expectedError, actualError);
+    }
+
+    @Test
+    void parseMixedFractionWithBadDenominatorException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("1 1/a"));
+
+        // Arrange
+        String expectedError = "Invalid denominator";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertEquals(expectedError, actualError);
+    }
+
 
     @Test
     @DisplayName("Test parseFraction with invalid mixed number format should throw exception")
