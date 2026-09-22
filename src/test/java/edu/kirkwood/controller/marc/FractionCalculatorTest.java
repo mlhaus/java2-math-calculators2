@@ -1,5 +1,6 @@
 package edu.kirkwood.controller.marc;
 
+import edu.kirkwood.model.Fraction;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -137,5 +138,104 @@ class FractionCalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("Test parseFraction with a positive whole number")
+    void parseFractionWithPositiveWholeNumber() {
+        // Arrange
+        Fraction expected = new Fraction(5, 1);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("5");
+        // Assert
+        assertEquals(expected, actual);
+    }
 
+    @Test
+    @DisplayName("Test parseFraction with a negative whole number")
+    void parseFractionWithNegativeWholeNumber() {
+        // Arrange
+        Fraction expected = new Fraction(-5, 1);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("-5");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("Test parseFraction with a positive whole number")
+    void parseProperFractionWithPositive() {
+        // Arrange
+        Fraction expected = new Fraction(3, 4);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("3/4");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Test parseFraction with a negative whole number")
+    void parseImproperFractionWithNegative() {
+        // Arrange
+        Fraction expected = new Fraction(-7, 4);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("-7/4");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Test parseFraction with a positive whole number")
+    void parseMixedFractionWithPositive() {
+        // Arrange
+        Fraction expected = new Fraction(7, 3);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("2 1/3");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Test parseFraction with a negative whole number")
+    void parseMixedFractionWithNegative() {
+        // Arrange
+        Fraction expected = new Fraction(-13, 4);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("-3 1/4");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void parseFractionWithTextThrowsException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("a"));
+
+        // Arrange
+        String expectedError = FractionCalculator.INVALID_FRACTION;
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertEquals(expectedError, actualError);
+    }
+
+
+    @Test
+    @DisplayName("Test parseFraction with invalid mixed number format should throw exception")
+    void parseFractionWithInvalidMixedNumber_ThrowsException() {
+        // Act and Assert
+        Exception e = assertThrows(IllegalArgumentException.class, () -> FractionCalculator.parseFraction("1 2 3"));
+        // Arrange
+        String expectedError = "Invalid mixed number format";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertTrue(actualError.contains(expectedError));
+    }
+
+    @Test
+    @DisplayName("Test parseFraction with zero denominator should throw exception")
+    void parseFractionWithZeroDenominator_ThrowsException() {
+        Exception e = assertThrows(ArithmeticException.class, () -> FractionCalculator.parseFraction("5/0"));
+        assertTrue(e.getMessage().contains("Denominator cannot be zero"));
+    }
 }
