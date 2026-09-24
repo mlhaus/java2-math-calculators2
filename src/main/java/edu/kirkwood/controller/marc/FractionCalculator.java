@@ -101,12 +101,19 @@ public class FractionCalculator {
                 throw new NumberFormatException("Invalid mixed number format: '" + str + "' (the correct format is '1 2/3' or '-2 1/4')");
             }
             String[] parts2 = parts[1].split("/", 2); // "1/2" => {"1", "2"}
+            // Do not continue if any part of the fraction is missing.
+            if(parts2.length != 2 || parts2[0].isEmpty() || parts[1].isEmpty()) {
+                throw new NumberFormatException("Invalid mixed number format");
+            }
+
             int numerator = 0;
             try {
                 numerator = Integer.parseInt(parts2[0]);
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid numerator");
             }
+
+
             int denominator = 0;
             try {
                 denominator = Integer.parseInt(parts2[1]);
@@ -136,7 +143,14 @@ public class FractionCalculator {
                 throw new NumberFormatException("Invalid denominator");
             }
             return new Fraction(numerator, denominator);
+        } else { // Implementation for whole numbers
+            int whole = 0;
+            try {
+                whole =  Integer.parseInt(str);
+            } catch(NumberFormatException e) {
+                throw new NumberFormatException("Invalid whole number");
+            }
+            return new Fraction(whole, 1);
         }
-        return null;
     }
 }
