@@ -225,9 +225,13 @@ public class FractionCalculator {
                 throw new NumberFormatException("Invalid denominator");
             }
 
-            numerator = whole >= 0
-                    ? whole * denominator + numerator
-                    : whole * denominator - numerator;
+            boolean isNegative = whole < 0 || numerator < 0;
+            numerator = Math.abs(whole) * denominator + Math.abs(numerator);
+
+            if (isNegative) {
+                numerator = -numerator;
+            }
+
             return new Fraction(numerator, denominator);
         }
 

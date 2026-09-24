@@ -217,6 +217,16 @@ class FractionCalculatorTest {
     }
 
     @Test
+    @DisplayName("Test mixed fraction with a negative fractional part")
+    void parseMixedFractionWithNegativeFractionalPart() {
+        Fraction expected = new Fraction(-17, 8);
+
+        Fraction actual = FractionCalculator.parseFraction("2 -1/8");
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void parseFractionWithTextThrowsException() {
         // Act and Assert
         NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("a"));
