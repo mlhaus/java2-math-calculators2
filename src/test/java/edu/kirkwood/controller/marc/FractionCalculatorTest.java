@@ -206,6 +206,17 @@ class FractionCalculatorTest {
     }
 
     @Test
+    @DisplayName("Test parseFraction with a zero whole number")
+    void parseMixedFractionWithZeroWholeNumber() {
+        // Arrange
+        Fraction expected = new Fraction(1, 4);
+        // Act
+        Fraction actual = FractionCalculator.parseFraction("0 1/4");
+        // Assert
+        assertEquals(expected, actual);
+    }
+
+    @Test
     void parseFractionWithTextThrowsException() {
         // Act and Assert
         NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("a"));
@@ -217,6 +228,21 @@ class FractionCalculatorTest {
         // Assert
         assertEquals(expectedError, actualError);
     }
+
+
+    @Test
+    void parseMixedFractionWithBadWholeNumberException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("a 1/1"));
+
+        // Arrange
+        String expectedError = "Invalid whole number";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertEquals(expectedError, actualError);
+    }
+
 
     @Test
     void parseMixedFractionWithBadNumeratorException() {
@@ -246,6 +272,20 @@ class FractionCalculatorTest {
 
 
     @Test
+    void parseMixedFractionWithMissingDenominatorException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("1 1/ + 1"));
+
+        // Arrange
+        String expectedError = "Invalid mixed number format";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertEquals(expectedError, actualError);
+    }
+
+
+    @Test
     @DisplayName("Test parseFraction with invalid mixed number format should throw exception")
     void parseFractionWithInvalidMixedNumber_ThrowsException() {
         // Act and Assert
@@ -263,5 +303,45 @@ class FractionCalculatorTest {
     void parseFractionWithZeroDenominator_ThrowsException() {
         Exception e = assertThrows(ArithmeticException.class, () -> FractionCalculator.parseFraction("5/0"));
         assertTrue(e.getMessage().contains("Denominator cannot be zero"));
+    }
+
+    @Test
+    void parseFractionWithMissingDenominatorThrowsException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("1/ + 1"));
+
+        // Arrange
+        String expectedError = "Invalid fraction format";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertTrue(actualError.contains(expectedError));
+    }
+
+
+    @Test
+    void parseFractionWithTextNumeratorThrowsException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("a/2"));
+
+        // Arrange
+        String expectedError = "Invalid numerator";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertTrue(actualError.contains(expectedError));
+    }
+
+    @Test
+    void parseFractionWithTextDenominatorThrowsException() {
+        // Act and Assert
+        NumberFormatException e = assertThrows(NumberFormatException.class, () -> FractionCalculator.parseFraction("2/a"));
+
+        // Arrange
+        String expectedError = "Invalid denominator";
+        // Act
+        String actualError = e.getMessage();
+        // Assert
+        assertTrue(actualError.contains(expectedError));
     }
 }

@@ -114,7 +114,7 @@ public class FractionCalculator {
                 throw new NumberFormatException("Invalid denominator");
             }
             // No validation errors
-            if(whole > 0) { // Calculates positive fraction
+            if(whole >= 0) { // Calculates positive fraction
                 numerator = whole * denominator + numerator;
             } else { // Calculates negative fraction
                 numerator = whole * denominator - numerator;
