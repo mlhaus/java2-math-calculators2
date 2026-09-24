@@ -161,6 +161,10 @@ public class FractionCalculator {
      * @throws NumberFormatException if the numerator or denominator are not valid integers
      * @throws IllegalArgumentException if the fraction format is not valid
      */
+    // Implemented by GitHub Copilot with the following prompt:
+    // Implement the `parseFraction` method in the `FractionCalculator` class to get the related unit tests in the `FractionCalculatorTest` class to pass.
+    // I used this as a follow-up prompt
+    // I'm new to Java programming. Can you help me better understand the implementation of the `parseFraction` method.
     public static Fraction parseFraction(String str) throws NumberFormatException, IllegalArgumentException {
         if(str.contains(" ")) {
             String[] parts = str.split(" ", 2);
