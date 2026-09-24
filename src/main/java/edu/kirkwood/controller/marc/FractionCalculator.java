@@ -31,8 +31,35 @@ public class FractionCalculator {
                displayError(e.getMessage());
                continue;
             }
-            // Todo: Perform mathematical operation
-            // Todo: Display output
+            // Parse the fraction strings into Fraction objects
+            String fractionStr1 = parts[0];
+            String operator = parts[1];
+            String fractionStr2 = parts[2];
+            Fraction f1 = null;
+            Fraction f2 = null;
+            try {
+                f1 = parseFraction(fractionStr1);
+                f2 = parseFraction(fractionStr2);
+            } catch(Exception e) {
+                displayError(e.getMessage());
+                continue;
+            }
+            // Perform mathematical operation
+            Fraction result = null;
+            // Use .equals when checking equality of Strings in Java
+            if(operator.equals("+")) {
+                result = f1.add(f2);
+            } else if(operator.equals("-")) {
+                result = f1.subtract(f2);
+            } else if(operator.equals("*")) {
+                result = f1.multiply(f2);
+            } else if(operator.equals("/")) {
+                result = f1.divide(f2);
+            }
+            // Display output
+            System.out.printf("Result: %s %s %s = %s%n%n",
+                    f1.toMixedNumberString(), operator,
+                    f2.toMixedNumberString(), result.toMixedNumberString());
         }
         fractionGoodbye();
         pressEnterToContinue();
