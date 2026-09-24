@@ -91,66 +91,143 @@ public class FractionCalculator {
      * @throws NumberFormatException if the numerator or denominator are not valid integers
      * @throws IllegalArgumentException if the fraction format is not valid
      */
+//    public static Fraction parseFraction(String str) throws NumberFormatException, IllegalArgumentException {
+//        if(str.contains(" ")) { // Mixed number fraction
+//            String[] parts = str.split(" ", 2); // 1 1/2 => {"1", "1/2"}
+//            int whole = 0;
+//            try {
+//                whole = Integer.parseInt(parts[0]);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid mixed number format: '" + str + "' (the correct format is '1 2/3' or '-2 1/4')");
+//            }
+//            String[] parts2 = parts[1].split("/", 2); // "1/2" => {"1", "2"}
+//            // Do not continue if any part of the fraction is missing.
+//            if(parts2.length != 2 || parts2[0].isEmpty() || parts[1].isEmpty()) {
+//                throw new NumberFormatException("Invalid mixed number format");
+//            }
+//
+//            int numerator = 0;
+//            try {
+//                numerator = Integer.parseInt(parts2[0]);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid numerator");
+//            }
+//
+//
+//            int denominator = 0;
+//            try {
+//                denominator = Integer.parseInt(parts2[1]);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid denominator");
+//            }
+//            // No validation errors
+//            if(whole >= 0) { // Calculates positive fraction
+//                numerator = whole * denominator + numerator;
+//            } else { // Calculates negative fraction
+//                numerator = whole * denominator - numerator;
+//            }
+//            Fraction result = new Fraction(numerator, denominator);
+//            return result;
+//        } else if(str.contains("/")) { // proper and improper fractions 3/4 or 7/3
+//            String[] parts = str.split("/");
+//            int numerator = 0;
+//            try {
+//                numerator = Integer.parseInt(parts[0]);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid numerator");
+//            }
+//            int denominator = 0;
+//            try {
+//                denominator = Integer.parseInt(parts[1]);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid denominator");
+//            }
+//            return new Fraction(numerator, denominator);
+//        } else { // Implementation for whole numbers
+//            int whole = 0;
+//            try {
+//                whole =  Integer.parseInt(str);
+//            } catch(NumberFormatException e) {
+//                throw new NumberFormatException("Invalid whole number");
+//            }
+//            return new Fraction(whole, 1);
+//        }
+//    }
+
+    /**
+     * Parse a string into a Fraction objecct. Handles whole numbers, proper and improper fractions, and mixed numbers
+     * @param str The string input to parse
+     * @return a Fraction representing the parsed string
+     * @throws NumberFormatException if the numerator or denominator are not valid integers
+     * @throws IllegalArgumentException if the fraction format is not valid
+     */
     public static Fraction parseFraction(String str) throws NumberFormatException, IllegalArgumentException {
-        if(str.contains(" ")) { // Mixed number fraction
-            String[] parts = str.split(" ", 2); // 1 1/2 => {"1", "1/2"}
-            int whole = 0;
+        if(str.contains(" ")) {
+            String[] parts = str.split(" ", 2);
+            int whole;
             try {
                 whole = Integer.parseInt(parts[0]);
             } catch(NumberFormatException e) {
-                throw new NumberFormatException("Invalid mixed number format: '" + str + "' (the correct format is '1 2/3' or '-2 1/4')");
-            }
-            String[] parts2 = parts[1].split("/", 2); // "1/2" => {"1", "2"}
-            // Do not continue if any part of the fraction is missing.
-            if(parts2.length != 2 || parts2[0].isEmpty() || parts[1].isEmpty()) {
                 throw new NumberFormatException("Invalid mixed number format");
             }
 
-            int numerator = 0;
+            if(parts.length != 2) {
+                throw new IllegalArgumentException("Invalid mixed number format");
+            }
+
+            String[] fractionParts = parts[1].split("/", -1);
+            if(fractionParts.length != 2) {
+                throw new IllegalArgumentException("Invalid mixed number format");
+            }
+
+            int numerator;
             try {
-                numerator = Integer.parseInt(parts2[0]);
+                numerator = Integer.parseInt(fractionParts[0]);
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid numerator");
             }
 
-
-            int denominator = 0;
+            int denominator;
             try {
-                denominator = Integer.parseInt(parts2[1]);
+                denominator = Integer.parseInt(fractionParts[1]);
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid denominator");
             }
-            // No validation errors
-            if(whole >= 0) { // Calculates positive fraction
-                numerator = whole * denominator + numerator;
-            } else { // Calculates negative fraction
-                numerator = whole * denominator - numerator;
+
+            numerator = whole >= 0
+                    ? whole * denominator + numerator
+                    : whole * denominator - numerator;
+            return new Fraction(numerator, denominator);
+        }
+
+        if(str.contains("/")) {
+            String[] parts = str.split("/", -1);
+            if(parts.length != 2) {
+                throw new IllegalArgumentException("Invalid fraction format");
             }
-            Fraction result = new Fraction(numerator, denominator);
-            return result;
-        } else if(str.contains("/")) { // proper and improper fractions 3/4 or 7/3
-            String[] parts = str.split("/");
-            int numerator = 0;
+
+            int numerator;
             try {
                 numerator = Integer.parseInt(parts[0]);
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid numerator");
             }
-            int denominator = 0;
+
+            int denominator;
             try {
                 denominator = Integer.parseInt(parts[1]);
             } catch(NumberFormatException e) {
                 throw new NumberFormatException("Invalid denominator");
             }
             return new Fraction(numerator, denominator);
-        } else { // Implementation for whole numbers
-            int whole = 0;
-            try {
-                whole =  Integer.parseInt(str);
-            } catch(NumberFormatException e) {
-                throw new NumberFormatException("Invalid whole number");
-            }
-            return new Fraction(whole, 1);
         }
+
+        int whole;
+        try {
+            whole = Integer.parseInt(str);
+        } catch(NumberFormatException e) {
+            throw new NumberFormatException("Invalid whole number");
+        }
+        return new Fraction(whole, 1);
     }
 }
