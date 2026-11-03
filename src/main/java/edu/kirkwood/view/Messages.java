@@ -33,4 +33,13 @@ public class Messages {
     public static void fractionGoodbye() {
         displayMessage("Thank you for using Marc's Fraction Calculator");
     }
+
+    public static void coordinateGreet(){
+        displayMessage("Welcome to Wren's Coordinate Calculator");
+        System.out.println("This program asks you to define two coordinates and tells you what the distance and slope of the line between them is.");
+    }
+
+    public static void coordinateGoodbye(){
+        displayMessage("Thank you for using Wren's Coordinate Calculator");
+    }
 }
