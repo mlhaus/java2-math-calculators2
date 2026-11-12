@@ -5,6 +5,7 @@ import edu.kirkwood.controller.marc.FractionCalculator;
 import edu.kirkwood.controller.ryan.LoanCalculator;
 import edu.kirkwood.controller.noah.InterestCalculatorController;
 import edu.kirkwood.controller.masean.GPACalculator;
+import edu.kirkwood.controller.wren.CoordinateCalculator;
 import edu.kirkwood.controller.evan.DoomsdayCalculatorController;
 import edu.kirkwood.controller.xavian.HalfLifeCalculator;
 
@@ -21,7 +22,8 @@ public class MainMenu {
             "Xavian's Half Life Calculator",
             "Masean's GPA Calculator",
             "Noah's Interest Calculator",
-            "Ryan's Amortization Loan Calculator", 
+            "Ryan's Amortization Loan Calculator",
+            "Wren's Coordinate Calculator",
             "Bailey's Astro OEV Calculator", 
             "Issouf's Retirement Calculator", 
             "Evan's Doomsday Calculator",
@@ -47,12 +49,15 @@ public class MainMenu {
                     LoanCalculator.start();
                     break;
                 case 6:
-                    edu.kirkwood.controller.bailey.AstroOEVCalculator.start();
+                    CoordinateCalculator.start();
                     break;
                 case 7:
-                    RetirementCalculator.start();
+                    edu.kirkwood.controller.bailey.AstroOEVCalculator.start();
                     break;
                 case 8:
+                    RetirementCalculator.start();
+                    break;
+                case 9:
                     DoomsdayCalculatorController.start();
                     break;
                 default:
